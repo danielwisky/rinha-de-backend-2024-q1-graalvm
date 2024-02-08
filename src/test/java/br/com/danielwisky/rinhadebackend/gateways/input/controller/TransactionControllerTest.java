@@ -53,7 +53,48 @@ class TransactionControllerTest extends IntegrationTest {
             .content(objectMapper.writeValueAsString(request)))
         .andExpect(status().isOk())
         .andExpect(header().string(CONTENT_TYPE, APPLICATION_JSON_VALUE))
-        .andExpect(jsonPath("$.limit", is(clientEntity.getLimit())))
-        .andExpect(jsonPath("$.balance", is(clientEntity.getBalance().add(request.getValue()))));
+        .andExpect(jsonPath("$.limite", is(clientEntity.getLimit().intValue())))
+        .andExpect(
+            jsonPath("$.saldo", is(clientEntity.getBalance().add(request.getValue()).intValue())));
+  }
+
+  @Test
+  @DisplayName("should process debit transaction")
+  void shouldProcessDebitTransaction() throws Exception {
+    final ClientEntity clientEntity =
+        clientEntityPostgreSQLRepository.save(ClientEntityTemplate.valid());
+    final TransactionRequest request = TransactionRequestTemplate.validDebit();
+
+    mockMVC.perform(post(String.format("/clientes/%s/transacoes", clientEntity.getId()))
+            .contentType(APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(request)))
+        .andExpect(status().isOk())
+        .andExpect(header().string(CONTENT_TYPE, APPLICATION_JSON_VALUE))
+        .andExpect(jsonPath("$.limite", is(clientEntity.getLimit().intValue())))
+        .andExpect(jsonPath("$.saldo",
+            is(clientEntity.getBalance().subtract(request.getValue()).intValue())));
+  }
+
+  @Test
+  @DisplayName("should validate insufficient funds")
+  void shouldValidateInsufficientFunds() throws Exception {
+    final ClientEntity clientEntity =
+        clientEntityPostgreSQLRepository.save(ClientEntityTemplate.valid());
+    final TransactionRequest request = TransactionRequestTemplate.validDebitWithHighValue();
+
+    mockMVC.perform(post(String.format("/clientes/%s/transacoes", clientEntity.getId()))
+            .contentType(APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(request)))
+        .andExpect(status().isUnprocessableEntity());
+  }
+
+  @Test
+  @DisplayName("should validate non-existent client")
+  void shouldValidateNonExistentClient() throws Exception {
+    final TransactionRequest request = TransactionRequestTemplate.validCredit();
+    mockMVC.perform(post("/clientes/10/transacoes")
+            .contentType(APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(request)))
+        .andExpect(status().isNotFound());
   }
 }

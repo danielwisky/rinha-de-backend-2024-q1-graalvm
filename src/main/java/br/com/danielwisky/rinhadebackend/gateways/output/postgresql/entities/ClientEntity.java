@@ -1,6 +1,5 @@
 package br.com.danielwisky.rinhadebackend.gateways.output.postgresql.entities;
 
-import static jakarta.persistence.GenerationType.AUTO;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 import br.com.danielwisky.rinhadebackend.domains.Client;
@@ -16,7 +15,6 @@ import java.math.BigInteger;
 import java.time.LocalDateTime;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
 
 @Data
 @NoArgsConstructor

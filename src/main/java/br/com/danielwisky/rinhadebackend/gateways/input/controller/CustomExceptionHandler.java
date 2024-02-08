@@ -8,9 +8,9 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-import br.com.danielwisky.rinhadebackend.utils.MessageUtils;
 import br.com.danielwisky.rinhadebackend.domains.exceptions.I18NRuntimeException;
 import br.com.danielwisky.rinhadebackend.gateways.input.controller.resources.response.ErrorResponse;
+import br.com.danielwisky.rinhadebackend.utils.MessageUtils;
 import jakarta.validation.ConstraintViolationException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

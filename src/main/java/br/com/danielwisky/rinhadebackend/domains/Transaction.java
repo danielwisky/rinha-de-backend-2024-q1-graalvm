@@ -2,6 +2,7 @@ package br.com.danielwisky.rinhadebackend.domains;
 
 import br.com.danielwisky.rinhadebackend.domains.enums.TransactionType;
 import java.math.BigInteger;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,4 +19,5 @@ public class Transaction {
   private BigInteger value;
   private String description;
   private Client client;
+  private LocalDateTime createdAt;
 }

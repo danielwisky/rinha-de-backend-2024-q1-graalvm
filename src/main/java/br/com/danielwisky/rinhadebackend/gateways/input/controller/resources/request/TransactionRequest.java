@@ -3,7 +3,6 @@ package br.com.danielwisky.rinhadebackend.gateways.input.controller.resources.re
 import br.com.danielwisky.rinhadebackend.domains.Transaction;
 import br.com.danielwisky.rinhadebackend.domains.enums.TransactionType;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;

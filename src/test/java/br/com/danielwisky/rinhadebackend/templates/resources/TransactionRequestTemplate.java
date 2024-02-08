@@ -9,7 +9,23 @@ public class TransactionRequestTemplate {
     final TransactionRequest transactionRequest = new TransactionRequest();
     transactionRequest.setType('c');
     transactionRequest.setValue(BigInteger.valueOf(100));
-    transactionRequest.setDescription("description");
+    transactionRequest.setDescription("credit");
+    return transactionRequest;
+  }
+
+  public static TransactionRequest validDebit() {
+    final TransactionRequest transactionRequest = new TransactionRequest();
+    transactionRequest.setType('d');
+    transactionRequest.setValue(BigInteger.valueOf(10));
+    transactionRequest.setDescription("debit");
+    return transactionRequest;
+  }
+
+  public static TransactionRequest validDebitWithHighValue() {
+    final TransactionRequest transactionRequest = new TransactionRequest();
+    transactionRequest.setType('d');
+    transactionRequest.setValue(BigInteger.valueOf(1001));
+    transactionRequest.setDescription("debit");
     return transactionRequest;
   }
 }

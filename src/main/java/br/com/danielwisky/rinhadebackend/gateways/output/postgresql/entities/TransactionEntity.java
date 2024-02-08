@@ -18,6 +18,7 @@ import jakarta.validation.constraints.Size;
 import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.time.LocalDateTime;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -41,10 +42,11 @@ public class TransactionEntity implements Serializable {
   @NotBlank
   @Size(max = 10)
   private String description;
-
   @ManyToOne
   @JoinColumn(name = "client_id", nullable = false, foreignKey = @ForeignKey(name = "fk_transactions_clients"))
   private ClientEntity client;
+  @Column(name = "created_at")
+  private LocalDateTime createdAt;
 
   public TransactionEntity(final Transaction transaction) {
     this.id = transaction.getId();
@@ -56,6 +58,7 @@ public class TransactionEntity implements Serializable {
     this.client = of(transaction.getClient())
         .map(ClientEntity::new)
         .orElse(null);
+    this.createdAt = transaction.getCreatedAt();
   }
 
   public Transaction toDomain() {
@@ -69,6 +72,7 @@ public class TransactionEntity implements Serializable {
         .client(of(client)
             .map(ClientEntity::toDomain)
             .orElse(null))
+        .createdAt(createdAt)
         .build();
   }
 }
