@@ -16,4 +16,13 @@ public class ClientTemplate {
         .lastModifiedDate(LocalDateTime.now())
         .build();
   }
+
+  public static Client validWithZeroLimit() {
+    return Client.builder()
+        .id(1L)
+        .limit(ZERO)
+        .balance(ZERO)
+        .lastModifiedDate(LocalDateTime.now())
+        .build();
+  }
 }

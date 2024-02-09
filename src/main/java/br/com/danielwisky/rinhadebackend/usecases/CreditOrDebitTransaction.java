@@ -22,12 +22,6 @@ public class CreditOrDebitTransaction {
   private final ClientDataGateway clientDataGateway;
   private final TransactionDataGateway transactionDataGateway;
 
-  private static void validateSufficientFunds(final Client client) {
-    if (client.getLimit().add(client.getBalance()).compareTo(ZERO) < 0) {
-      throw new InsufficientFundsException();
-    }
-  }
-
   @Transactional
   public Client execute(final Long clientId, final Transaction transaction) {
     final Client client = clientDataGateway.findById(clientId)
@@ -40,5 +34,11 @@ public class CreditOrDebitTransaction {
 
     transactionDataGateway.save(transaction);
     return clientDataGateway.save(client);
+  }
+
+  private void validateSufficientFunds(final Client client) {
+    if (client.getLimit().add(client.getBalance()).compareTo(ZERO) < 0) {
+      throw new InsufficientFundsException();
+    }
   }
 }
