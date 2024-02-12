@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/rinha-de-backend
+    url: jdbc:postgresql://localhost:5432/rinha
     username: admin
     password: admin
   jpa:
