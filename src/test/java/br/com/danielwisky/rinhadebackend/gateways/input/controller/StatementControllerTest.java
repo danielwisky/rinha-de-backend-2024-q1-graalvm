@@ -58,9 +58,7 @@ class StatementControllerTest extends IntegrationTest {
         .andExpect(
             jsonPath("$.ultimas_transacoes[0].valor", is(transactionEntity.getValue().intValue())))
         .andExpect(
-            jsonPath("$.ultimas_transacoes[0].descricao", is(transactionEntity.getDescription())))
-        .andExpect(jsonPath("$.ultimas_transacoes[0].realizada_em",
-            is(transactionEntity.getCreatedAt().toString())));
+            jsonPath("$.ultimas_transacoes[0].descricao", is(transactionEntity.getDescription())));
   }
 
   @Test

@@ -3,7 +3,6 @@ package br.com.danielwisky.rinhadebackend.gateways.output.postgresql.repositorie
 import br.com.danielwisky.rinhadebackend.gateways.output.postgresql.entities.ClientEntity;
 import org.springframework.data.repository.CrudRepository;
 
-public interface ClientEntityPostgreSQLRepository
-    extends CrudRepository<ClientEntity, Long> {
+public interface ClientEntityPostgreSQLRepository extends CrudRepository<ClientEntity, Long> {
 
 }

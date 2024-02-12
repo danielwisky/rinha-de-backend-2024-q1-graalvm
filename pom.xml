@@ -8,13 +8,13 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>3.2.2</version>
+    <version>3.2.1</version>
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
 
   <groupId>br.com.danielwisky</groupId>
   <artifactId>rinha-de-backend</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.1</version>
   <name>rinha-de-backend</name>
   <description>Rinha de Backend - 2024/Q1</description>
 
