@@ -53,7 +53,7 @@ public class CustomExceptionHandler {
     final var message = this.processFieldErrors(fieldErrors);
     final var responseHeaders = new HttpHeaders();
     responseHeaders.add(CONTENT_TYPE, APPLICATION_JSON_VALUE);
-    return new ResponseEntity<>(message, responseHeaders, BAD_REQUEST);
+    return new ResponseEntity<>(message, responseHeaders, UNPROCESSABLE_ENTITY);
   }
 
   @ExceptionHandler(I18NRuntimeException.class)
@@ -73,7 +73,7 @@ public class CustomExceptionHandler {
   @ExceptionHandler({IllegalArgumentException.class, ConstraintViolationException.class})
   public HttpEntity<ErrorResponse> handle400Exceptions(final RuntimeException ex) {
     log.debug(ex.getMessage(), ex);
-    return new ResponseEntity<>(createResponse(ex), buildHttpHeader(), BAD_REQUEST);
+    return new ResponseEntity<>(createResponse(ex), buildHttpHeader(), UNPROCESSABLE_ENTITY);
   }
 
   @ExceptionHandler(Throwable.class)
