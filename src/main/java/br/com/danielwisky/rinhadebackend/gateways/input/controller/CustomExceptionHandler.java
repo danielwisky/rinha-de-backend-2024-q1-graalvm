@@ -6,6 +6,7 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
 import static org.springframework.http.HttpHeaders.CONTENT_TYPE;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
+import static org.springframework.http.HttpStatus.UNPROCESSABLE_ENTITY;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 import br.com.danielwisky.rinhadebackend.domains.exceptions.I18NRuntimeException;
@@ -15,6 +16,7 @@ import jakarta.validation.ConstraintViolationException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.PessimisticLockingFailureException;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -59,6 +61,13 @@ public class CustomExceptionHandler {
     log.debug(ex.getMessage(), ex);
     final var message = messageUtils.getMessage(ex.getKey(), ex.getParams());
     return new ResponseEntity<>(createResponse(message), buildHttpHeader(), ex.getHttpStatus());
+  }
+
+  @ExceptionHandler(PessimisticLockingFailureException.class)
+  public HttpEntity<ErrorResponse> handlerPessimisticLockingFailureException(
+      final PessimisticLockingFailureException e) {
+    log.debug(e.getMessage(), e);
+    return new ResponseEntity<>(createResponse(e), buildHttpHeader(), UNPROCESSABLE_ENTITY);
   }
 
   @ExceptionHandler({IllegalArgumentException.class, ConstraintViolationException.class})
