@@ -14,7 +14,7 @@
 
   <groupId>br.com.danielwisky</groupId>
   <artifactId>rinha-de-backend</artifactId>
-  <version>0.0.1</version>
+  <version>0.0.3</version>
   <name>rinha-de-backend</name>
   <description>Rinha de Backend - 2024/Q1</description>
 
@@ -113,9 +113,6 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
         <configuration>
-          <image>
-            <builder>dashaun/builder:tiny</builder>
-          </image>
           <excludes>
             <exclude>
               <groupId>org.projectlombok</groupId>

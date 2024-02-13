@@ -55,7 +55,8 @@ class TransactionControllerTest extends IntegrationTest {
         .andExpect(header().string(CONTENT_TYPE, APPLICATION_JSON_VALUE))
         .andExpect(jsonPath("$.limite", is(clientEntity.getLimit().intValue())))
         .andExpect(
-            jsonPath("$.saldo", is(clientEntity.getBalance().add(request.getValue()).intValue())));
+            jsonPath("$.saldo",
+                is(clientEntity.getBalance().add(request.getValue().toBigInteger()).intValue())));
   }
 
   @Test
@@ -72,7 +73,7 @@ class TransactionControllerTest extends IntegrationTest {
         .andExpect(header().string(CONTENT_TYPE, APPLICATION_JSON_VALUE))
         .andExpect(jsonPath("$.limite", is(clientEntity.getLimit().intValue())))
         .andExpect(jsonPath("$.saldo",
-            is(clientEntity.getBalance().subtract(request.getValue()).intValue())));
+            is(clientEntity.getBalance().subtract(request.getValue().toBigInteger()).intValue())));
   }
 
   @Test

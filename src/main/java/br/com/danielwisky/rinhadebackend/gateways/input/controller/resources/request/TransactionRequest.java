@@ -3,13 +3,14 @@ package br.com.danielwisky.rinhadebackend.gateways.input.controller.resources.re
 import br.com.danielwisky.rinhadebackend.domains.Transaction;
 import br.com.danielwisky.rinhadebackend.domains.enums.TransactionType;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import java.io.Serial;
 import java.io.Serializable;
-import java.math.BigInteger;
+import java.math.BigDecimal;
 import lombok.Data;
 
 @Data
@@ -21,7 +22,8 @@ public class TransactionRequest implements Serializable {
   @JsonProperty("valor")
   @NotNull(message = "{field.cant.be.null}")
   @Positive(message = "{field.must.be.positive}")
-  private BigInteger value;
+  @Digits(integer = 38, fraction = 0)
+  private BigDecimal value;
   @JsonProperty("tipo")
   @NotNull(message = "{field.cant.be.null}")
   private Character type;
@@ -32,7 +34,7 @@ public class TransactionRequest implements Serializable {
 
   public Transaction toDomain() {
     return Transaction.builder()
-        .value(value)
+        .value(value.toBigInteger())
         .type(TransactionType.fromCode(type))
         .description(description)
         .build();
