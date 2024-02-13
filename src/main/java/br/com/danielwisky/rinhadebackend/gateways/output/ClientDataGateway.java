@@ -8,4 +8,6 @@ public interface ClientDataGateway {
   Client save(Client client);
 
   Optional<Client> findById(Long id);
+
+  Optional<Client> findByIdWithPessimisticWrite(Long id);
 }

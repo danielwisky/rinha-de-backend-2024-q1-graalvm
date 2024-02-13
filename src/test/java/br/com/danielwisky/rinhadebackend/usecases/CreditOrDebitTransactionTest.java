@@ -54,7 +54,8 @@ class CreditOrDebitTransactionTest extends UnitTest {
     final Client client = ClientTemplate.valid();
     final Transaction transaction = TransactionTemplate.validCredit();
 
-    when(clientDataGateway.findById(client.getId())).thenReturn(Optional.of(client));
+    when(clientDataGateway.findByIdWithPessimisticWrite(client.getId()))
+        .thenReturn(Optional.of(client));
 
     creditOrDebitTransaction.execute(client.getId(), transaction);
 
@@ -74,7 +75,8 @@ class CreditOrDebitTransactionTest extends UnitTest {
     final Client client = ClientTemplate.valid();
     final Transaction transaction = TransactionTemplate.validDebit();
 
-    when(clientDataGateway.findById(client.getId())).thenReturn(Optional.of(client));
+    when(clientDataGateway.findByIdWithPessimisticWrite(client.getId()))
+        .thenReturn(Optional.of(client));
 
     creditOrDebitTransaction.execute(client.getId(), transaction);
 
@@ -94,7 +96,8 @@ class CreditOrDebitTransactionTest extends UnitTest {
     final Client client = ClientTemplate.valid();
     final Transaction transaction = TransactionTemplate.validDebit();
 
-    when(clientDataGateway.findById(client.getId())).thenReturn(Optional.empty());
+    when(clientDataGateway.findByIdWithPessimisticWrite(client.getId()))
+        .thenReturn(Optional.empty());
 
     final ResourceNotFoundException exception =
         assertThrows(ResourceNotFoundException.class,
@@ -109,7 +112,8 @@ class CreditOrDebitTransactionTest extends UnitTest {
     final Client client = ClientTemplate.validWithZeroLimit();
     final Transaction transaction = TransactionTemplate.validDebit();
 
-    when(clientDataGateway.findById(client.getId())).thenReturn(Optional.of(client));
+    when(clientDataGateway.findByIdWithPessimisticWrite(client.getId()))
+        .thenReturn(Optional.of(client));
 
     final InsufficientFundsException exception =
         assertThrows(InsufficientFundsException.class,

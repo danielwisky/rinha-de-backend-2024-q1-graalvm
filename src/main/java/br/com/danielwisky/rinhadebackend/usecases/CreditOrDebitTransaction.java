@@ -11,6 +11,7 @@ import br.com.danielwisky.rinhadebackend.domains.exceptions.ResourceNotFoundExce
 import br.com.danielwisky.rinhadebackend.gateways.output.ClientDataGateway;
 import br.com.danielwisky.rinhadebackend.gateways.output.TransactionDataGateway;
 import jakarta.transaction.Transactional;
+import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -24,11 +25,15 @@ public class CreditOrDebitTransaction {
 
   @Transactional
   public Client execute(final Long clientId, final Transaction transaction) {
-    final Client client = clientDataGateway.findById(clientId)
+    final Client client = clientDataGateway.findByIdWithPessimisticWrite(clientId)
         .orElseThrow(() -> new ResourceNotFoundException(CLIENT_NOT_FOUND));
+
+    final LocalDateTime now = now();
     transaction.setClient(client);
-    transaction.setCreatedAt(now());
+    transaction.setCreatedAt(now);
+
     client.setBalance(calculateBalance.execute(client.getBalance(), transaction));
+    client.setLastModifiedDate(now);
 
     validateSufficientFunds(client);
 

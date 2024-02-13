@@ -7,7 +7,6 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.Version;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serial;
 import java.io.Serializable;
@@ -32,7 +31,6 @@ public class ClientEntity implements Serializable {
   private BigInteger limit;
   @NotNull
   private BigInteger balance;
-  @Version
   private LocalDateTime lastModifiedDate;
 
   public ClientEntity(final Client client) {

@@ -1,6 +1,7 @@
 package br.com.danielwisky.rinhadebackend.usecases;
 
 import static br.com.danielwisky.rinhadebackend.domains.enums.ErrorKey.CLIENT_NOT_FOUND;
+import static java.util.Optional.empty;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -16,7 +17,6 @@ import br.com.danielwisky.rinhadebackend.gateways.output.TransactionDataGateway;
 import br.com.danielwisky.rinhadebackend.templates.domains.ClientTemplate;
 import br.com.danielwisky.rinhadebackend.templates.domains.TransactionTemplate;
 import java.util.List;
-import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -53,7 +53,7 @@ class GenerateStatementTest extends UnitTest {
   @DisplayName("should validate non-existent client")
   void shouldValidateNonExistentClient() {
     final Client client = ClientTemplate.valid();
-    when(clientDataGateway.findById(client.getId())).thenReturn(Optional.empty());
+    when(clientDataGateway.findById(client.getId())).thenReturn(empty());
 
     final ResourceNotFoundException exception =
         assertThrows(ResourceNotFoundException.class,
