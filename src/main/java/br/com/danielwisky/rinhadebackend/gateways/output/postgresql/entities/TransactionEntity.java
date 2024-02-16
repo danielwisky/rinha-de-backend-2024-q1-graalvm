@@ -1,5 +1,6 @@
 package br.com.danielwisky.rinhadebackend.gateways.output.postgresql.entities;
 
+import static jakarta.persistence.FetchType.EAGER;
 import static jakarta.persistence.GenerationType.IDENTITY;
 import static java.util.Optional.of;
 
@@ -42,7 +43,7 @@ public class TransactionEntity implements Serializable {
   @NotBlank
   @Size(max = 10)
   private String description;
-  @ManyToOne
+  @ManyToOne(fetch = EAGER)
   @JoinColumn(name = "client_id", nullable = false, foreignKey = @ForeignKey(name = "fk_transactions_clients"))
   private ClientEntity client;
   @Column(name = "created_at")

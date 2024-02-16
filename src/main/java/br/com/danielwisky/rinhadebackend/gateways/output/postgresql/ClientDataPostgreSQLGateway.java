@@ -25,7 +25,7 @@ public class ClientDataPostgreSQLGateway implements ClientDataGateway {
   }
 
   @Override
-  public Optional<Client> findByIdWithPessimisticWrite(final Long id) {
-    return repository.findWithLockingById(id).map(ClientEntity::toDomain);
+  public Optional<Client> findByIdWithPessimisticWriteLock(final Long id) {
+    return repository.findWithPessimisticWriteLockById(id).map(ClientEntity::toDomain);
   }
 }

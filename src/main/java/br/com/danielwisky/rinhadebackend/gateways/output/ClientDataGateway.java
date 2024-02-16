@@ -9,5 +9,5 @@ public interface ClientDataGateway {
 
   Optional<Client> findById(Long id);
 
-  Optional<Client> findByIdWithPessimisticWrite(Long id);
+  Optional<Client> findByIdWithPessimisticWriteLock(Long id);
 }

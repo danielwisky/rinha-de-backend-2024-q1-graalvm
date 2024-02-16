@@ -39,12 +39,13 @@ class ClientDataPostgreSQLGatewayTest extends UnitTest {
 
   @Test
   @DisplayName("should find by id")
-  void shouldFindById() {
+  void findById() {
     final ClientEntity client = ClientEntityTemplate.valid();
     when(clientEntityPostgreSQLRepository.findById(client.getId()))
         .thenReturn(Optional.of(client));
 
-    final Optional<Client> clientReturned = clientDataPostgreSQLGateway.findById(client.getId());
+    final Optional<Client> clientReturned =
+        clientDataPostgreSQLGateway.findById(client.getId());
 
     assertTrue(clientReturned.isPresent());
   }
@@ -53,11 +54,11 @@ class ClientDataPostgreSQLGatewayTest extends UnitTest {
   @DisplayName("should find by id with pessimistic write")
   void shouldFindByIdWithPessimisticWrite() {
     final ClientEntity client = ClientEntityTemplate.valid();
-    when(clientEntityPostgreSQLRepository.findWithLockingById(client.getId()))
+    when(clientEntityPostgreSQLRepository.findWithPessimisticWriteLockById(client.getId()))
         .thenReturn(Optional.of(client));
 
     final Optional<Client> clientReturned =
-        clientDataPostgreSQLGateway.findByIdWithPessimisticWrite(client.getId());
+        clientDataPostgreSQLGateway.findByIdWithPessimisticWriteLock(client.getId());
 
     assertTrue(clientReturned.isPresent());
   }

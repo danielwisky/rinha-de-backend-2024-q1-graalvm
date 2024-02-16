@@ -1,6 +1,5 @@
 package br.com.danielwisky.rinhadebackend.usecases;
 
-
 import static br.com.danielwisky.rinhadebackend.domains.enums.ErrorKey.CLIENT_NOT_FOUND;
 
 import br.com.danielwisky.rinhadebackend.domains.Client;
@@ -24,7 +23,7 @@ public class GenerateStatement {
     final Client client = clientDataGateway.findById(clientId)
         .orElseThrow(() -> new ResourceNotFoundException(CLIENT_NOT_FOUND));
     final List<Transaction> recentTransactions =
-        transactionDataGateway.findTop10ByClientIdOrderByIdDesc(clientId);
+        transactionDataGateway.findTop10ByClientIdOrderByCreatedAtDesc(clientId);
     return Statement.builder()
         .client(client)
         .recentTransactions(recentTransactions)

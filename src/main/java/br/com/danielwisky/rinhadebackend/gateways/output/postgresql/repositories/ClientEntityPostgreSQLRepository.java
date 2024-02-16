@@ -13,5 +13,5 @@ public interface ClientEntityPostgreSQLRepository extends CrudRepository<ClientE
 
   @Lock(PESSIMISTIC_WRITE)
   @QueryHints({@QueryHint(name = "jakarta.persistence.lock.timeout", value = "3000")})
-  Optional<ClientEntity> findWithLockingById(Long id);
+  Optional<ClientEntity> findWithPessimisticWriteLockById(Long id);
 }

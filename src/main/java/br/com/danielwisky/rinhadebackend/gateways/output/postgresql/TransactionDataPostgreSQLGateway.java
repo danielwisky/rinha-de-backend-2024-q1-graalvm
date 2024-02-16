@@ -20,8 +20,8 @@ public class TransactionDataPostgreSQLGateway implements TransactionDataGateway 
   }
 
   @Override
-  public List<Transaction> findTop10ByClientIdOrderByIdDesc(final Long clientId) {
-    return repository.findTop10ByClientIdOrderByIdDesc(clientId)
+  public List<Transaction> findTop10ByClientIdOrderByCreatedAtDesc(final Long clientId) {
+    return repository.findTop10ByClientIdOrderByCreatedAtDesc(clientId)
         .stream()
         .map(TransactionEntity::toDomain)
         .toList();

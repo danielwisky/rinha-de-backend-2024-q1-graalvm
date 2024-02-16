@@ -42,7 +42,7 @@ class GenerateStatementTest extends UnitTest {
 
     when(clientDataGateway.findById(client.getId()))
         .thenReturn(java.util.Optional.of(client));
-    when(transactionDataGateway.findTop10ByClientIdOrderByIdDesc(client.getId()))
+    when(transactionDataGateway.findTop10ByClientIdOrderByCreatedAtDesc(client.getId()))
         .thenReturn(List.of(transaction));
 
     final Statement statement = generateStatement.execute(client.getId());

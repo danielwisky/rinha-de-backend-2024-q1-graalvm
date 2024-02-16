@@ -7,5 +7,5 @@ public interface TransactionDataGateway {
 
   Transaction save(Transaction transaction);
 
-  List<Transaction> findTop10ByClientIdOrderByIdDesc(Long clientId);
+  List<Transaction> findTop10ByClientIdOrderByCreatedAtDesc(Long clientId);
 }

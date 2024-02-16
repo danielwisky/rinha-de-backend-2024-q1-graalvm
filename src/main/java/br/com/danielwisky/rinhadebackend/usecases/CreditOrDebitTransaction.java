@@ -25,7 +25,7 @@ public class CreditOrDebitTransaction {
 
   @Transactional
   public Client execute(final Long clientId, final Transaction transaction) {
-    final Client client = clientDataGateway.findByIdWithPessimisticWrite(clientId)
+    final Client client = clientDataGateway.findByIdWithPessimisticWriteLock(clientId)
         .orElseThrow(() -> new ResourceNotFoundException(CLIENT_NOT_FOUND));
 
     final LocalDateTime now = now();
