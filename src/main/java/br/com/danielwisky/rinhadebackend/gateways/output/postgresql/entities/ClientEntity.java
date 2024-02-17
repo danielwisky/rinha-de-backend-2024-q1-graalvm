@@ -31,6 +31,7 @@ public class ClientEntity implements Serializable {
   private BigInteger limit;
   @NotNull
   private BigInteger balance;
+  @Column(name = "last_modified_date")
   private LocalDateTime lastModifiedDate;
 
   public ClientEntity(final Client client) {
